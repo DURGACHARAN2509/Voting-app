@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header><h1>⚙️ Admin Dashboard</h1></header>
+
+  <div class="container">
+    <section class="admin-section">
+      <h2>Manage Candidates</h2>
+      <input type="text" id="candidateName" placeholder="Enter Candidate Name" />
+      <select id="candidateGender">
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+      </select>
+      <button onclick="addCandidate()">Add Candidate</button>
+
+      <h3>Current Candidates:</h3>
+      <ul id="candidateList"></ul>
+    </section>
+
+    <section class="admin-section">
+      <h2>Manage Elections</h2>
+      <input type="text" id="electionName" placeholder="Enter Election Name" />
+      <button onclick="addElection()">Add Election</button>
+      <ul id="electionList"></ul>
+    </section>
+  </div>
+
+  <footer><a href="results.html">View Results</a></footer>
+
+  <script>
+    const candidates = [];
+    const elections = [];
+
+    function addCandidate() {
+      const name = document.getElementById("candidateName").value.trim();
+      const gender = document.getElementById("candidateGender").value;
+      if (!name) return alert("Enter candidate name!");
+      candidates.push({ name, gender });
+      updateCandidates();
+      document.getElementById("candidateName").value = "";
+    }
+
+    function updateCandidates() {
+      const list = document.getElementById("candidateList");
+      list.innerHTML = "";
+      candidates.forEach((c, i) => {
+        const li = document.createElement("li");
+        li.textContent = `${c.name} (${c.gender})`;
+        const del = document.createElement("button");
+        del.textContent = "❌";
+        del.onclick = () => {
+          candidates.splice(i, 1);
+          updateCandidates();
+        };
+        li.appendChild(del);
+        list.appendChild(li);
+      });
+    }
+
+    function addElection() {
+      const name = document.getElementById("electionName").value.trim();
+      if (!name) return alert("Enter election name!");
+      elections.push(name);
+      const list = document.getElementById("electionList");
+      const li = document.createElement("li");
+      li.textContent = name;
+      list.appendChild(li);
+      document.getElementById("electionName").value = "";
+    }
+  </script>
+</body>
+</html>
