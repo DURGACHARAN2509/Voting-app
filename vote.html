@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vote</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Vote Your Candidate</h1>
+    <ul id="candidateList"></ul>
+    <button onclick="window.location.href='results.html'">View Results</button>
+  </div>
+
+  <script>
+    async function loadCandidates() {
+      const res = await fetch("/candidates");
+      const data = await res.json();
+      const list = document.getElementById("candidateList");
+      list.innerHTML = "";
+      data.forEach(c => {
+        const li = document.createElement("li");
+        li.innerHTML = `<div style="background:#fff;color:#333;padding:10px;margin:10px;border-radius:8px">
+          <b>${c.name}</b> (${c.gender})
+          <button onclick="vote(${c.id})">Vote</button></div>`;
+        list.appendChild(li);
+      });
+    }
+
+    async function vote(id) {
+      const voterId = localStorage.getItem("voterId");
+      const res = await fetch("/vote", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ voterId, candidateId: id })
+      });
+      const data = await res.json();
+      alert(data.success ? "Vote recorded!" : "You already voted or error!");
+    }
+
+    loadCandidates();
+  </script>
+</body>
+</html>

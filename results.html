@@ -1,29 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Results</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Live Results</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header><h1>📊 Election Results</h1></header>
-
   <div class="container">
-    <section class="results-section">
-      <h2>Male Candidates</h2>
-      <ul>
-        <li>Bob — 52 votes</li>
-        <li>Charlie — 43 votes</li>
-      </ul>
-
-      <h2>Female Candidates</h2>
-      <ul>
-        <li>Alice — 68 votes</li>
-      </ul>
-    </section>
+    <h1>Live Election Results</h1>
+    <div id="results"></div>
   </div>
-
-  <footer><a href="index.html">⬅ Back to Home</a></footer>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

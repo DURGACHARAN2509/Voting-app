@@ -1,50 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Online Voting System</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Voter Login</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header><h1>🗳️ Online Voting System</h1></header>
-
   <div class="container">
-    <div class="login-section">
-      <h2>User Login</h2>
-      <input type="text" id="username" placeholder="Username" />
-      <input type="password" id="password" placeholder="Password" />
-      <button onclick="login()">Login</button>
-    </div>
-
-    <div class="voting-section hidden">
-      <h2>Cast Your Vote</h2>
-      <p>Select your preferred candidate:</p>
-      <div id="candidates">
-        <label><input type="radio" name="vote" value="Alice" /> Alice</label><br />
-        <label><input type="radio" name="vote" value="Bob" /> Bob</label><br />
-        <label><input type="radio" name="vote" value="Charlie" /> Charlie</label><br />
-      </div>
-      <button onclick="submitVote()">Submit Vote</button>
-    </div>
+    <h1>Login to Vote</h1>
+    <input type="text" id="userId" placeholder="Voter ID">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <p><a href="admin.html">Admin Login</a></p>
   </div>
 
-  <footer><a href="results.html">View Results</a></footer>
-
   <script>
-    function login() {
-      const user = document.getElementById("username").value.trim();
-      const pass = document.getElementById("password").value.trim();
-      if (!user || !pass) return alert("Please enter both username and password.");
-      document.querySelector(".login-section").classList.add("hidden");
-      document.querySelector(".voting-section").classList.remove("hidden");
-    }
-
-    function submitVote() {
-      const selected = document.querySelector("input[name='vote']:checked");
-      if (!selected) return alert("Please select a candidate before submitting!");
-      alert(`You voted for ${selected.value}. Vote submitted successfully!`);
-      document.querySelector(".voting-section").innerHTML = "<h3>✅ Thank you for voting!</h3>";
+    async function login() {
+      const id = userId.value, password = document.getElementById("password").value;
+      const res = await fetch("/login", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, password })
+      });
+      const data = await res.json();
+      if (data.success) {
+        localStorage.setItem("voterId", id);
+        window.location.href = "election.html";
+      } else alert("Invalid credentials!");
     }
   </script>
 </body>

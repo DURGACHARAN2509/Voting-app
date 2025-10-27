@@ -1,0 +1,39 @@
+body {
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #74b9ff, #a29bfe);
+  color: #fff;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  background: rgba(255, 255, 255, 0.1);
+  margin: 60px auto;
+  padding: 30px;
+  border-radius: 20px;
+  width: 400px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  background: #0984e3;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+input, select {
+  padding: 10px;
+  margin: 8px;
+  width: 80%;
+  border-radius: 8px;
+  border: none;
+}
+
+h1, h2 {
+  margin-bottom: 20px;
+}
